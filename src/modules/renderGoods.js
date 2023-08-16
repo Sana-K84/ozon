@@ -1,3 +1,4 @@
+import cartCounter from "./cartCounter";
 const renderGoods = (goods) => {
     const goodsWrapper = document.querySelector('.goods');
 
@@ -22,6 +23,7 @@ const renderGoods = (goods) => {
         `)
 
     });
+    cartCounter()
 }
 
 export default renderGoods

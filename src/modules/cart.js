@@ -1,4 +1,6 @@
 import renderCart from "./renderCart";
+import postData from "./postData";
+import cartCounter from "./cartCounter";
 
 const cart = () => {
     const cartBtn = document.getElementById('cart');
@@ -7,6 +9,8 @@ const cart = () => {
     const cartTotal = cartModal.querySelector('.cart-total > span');
     const goodsWrapper = document.querySelector('.goods');
     const cartWrapper = document.querySelector('.cart-wrapper');
+    const cartSendBtn = cartModal.querySelector('.cart-confirm');
+
 
     cartBtn.addEventListener('click', () => {
         const cart = localStorage.getItem('cart') ?
@@ -40,6 +44,7 @@ const cart = () => {
                 return acc += +goodItem.price
             }, 0)
         }
+        cartCounter()
     })
 
 
@@ -60,5 +65,14 @@ const cart = () => {
             renderCart(cart)
         }
     })
+    cartSendBtn.addEventListener('click', () => {
+        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        postData(cart).then(() => {
+            localStorage.removeItem('cart');
+            renderCart([])
+            cartTotal.textContent = 0;
+        })
+    })
+
 }
 export default cart

@@ -1,3 +1,5 @@
+import cartCounter from "./cartCounter";
+
 const renderCart = (goods) => {
     const cartWrapper = document.querySelector('.cart-wrapper');
 
@@ -30,7 +32,7 @@ const renderCart = (goods) => {
 
         });
     }
-
+    cartCounter();
 }
 
 export default renderCart
