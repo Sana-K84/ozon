@@ -10,8 +10,7 @@ const renderGoods = (goods) => {
         <div class="card" data-key=${goodsItem.id}>
        ${goodsItem.sale ? ` <div class="card-sale">🔥Hot Sale🔥</div>` : ``}
             <div class="card-img-wrapper">
-  
-                <span class="card-img-top" style="background-image: url('${goodsItem.img}')"></span>
+                  <span class="card-img-top" style="background-image: url('${goodsItem.img}')"></span>
             </div>
             <div class="card-body justify-content-between">
                 <div class="card-price">${goodsItem.price} ₽</div>

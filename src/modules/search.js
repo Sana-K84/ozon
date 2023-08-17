@@ -9,21 +9,36 @@ const search = () => {
     const maxInp = document.getElementById('max');
     const checkInp = document.getElementById('discount-checkbox');
     const checkMark = document.querySelector('.filter-check_checkmark')
-    // checked
+
+    const btnCatalog = document.querySelector('.catalog-button > button');
+    const catalogModal = document.querySelector('.catalog');
+    const catalogModalItems = document.querySelectorAll('.catalog li');
+
+    let isOpen = false;
+    btnCatalog.addEventListener('click', () => {
+        isOpen = !isOpen
+        if (isOpen) {
+            catalogModal.style.display = 'block'
+        } else
+            catalogModal.style.display = ''
+    })
 
 
-    const debounceFunc = debounce((min = '', max = '', checkValue = false, searchValue = '') => {
+
+
+
+    const debounceFunc = debounce((min = '', max = '', checkValue = false, searchValue = '', categoryText = '') => {
         getData().then((data) => {
-            renderGoods(funcFilter(data, min, max, checkValue, searchValue))
+            renderGoods(funcFilter(data, min, max, checkValue, searchValue, categoryText))
         })
     }, 300)
 
     searchInput.addEventListener('input', () => {
-        debounceFunc(minInp.value, maxInp.value, checkInp.value, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
     });
 
     minInp.addEventListener('input', (ev) => {
-        debounceFunc(minInp.value, maxInp.value, checkInp.value, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
     })
     maxInp.addEventListener('input', (ev) => {
         debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
@@ -35,6 +50,15 @@ const search = () => {
             checkMark.classList.remove('checked')
         };
         debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
+    })
+
+    catalogModalItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const categoryText = item.textContent;
+            debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
+
+        })
+
     })
 }
 

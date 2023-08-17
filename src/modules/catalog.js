@@ -1,6 +1,6 @@
 import getData from "./getData";
 import renderGoods from "./renderGoods";
-import { caegoryFilter } from "./filters";
+import { categoryFilter } from "./filters";
 
 
 const catalog = () => {
@@ -21,7 +21,7 @@ const catalog = () => {
         item.addEventListener('click', () => {
             const text = item.textContent;
             getData().then((data) => {
-                renderGoods(caegoryFilter(data, text))
+                renderGoods(categoryFilter(data, text))
             })
 
         })
