@@ -23,25 +23,32 @@ const search = () => {
             catalogModal.style.display = ''
     })
 
+    let categoryText = true;
 
+    catalogModalItems.forEach(item => {
+        item.addEventListener('click', () => {
+            categoryText = item.textContent;
+            debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
 
+        })
 
+    })
 
-    const debounceFunc = debounce((min = '', max = '', checkValue = false, searchValue = '', categoryText = '') => {
+    const debounceFunc = debounce((min = '', max = '', checkValue = false, searchValue = '', categoryText) => {
         getData().then((data) => {
             renderGoods(funcFilter(data, min, max, checkValue, searchValue, categoryText))
         })
     }, 300)
 
     searchInput.addEventListener('input', () => {
-        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
     });
 
     minInp.addEventListener('input', (ev) => {
-        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
     })
     maxInp.addEventListener('input', (ev) => {
-        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
     })
     checkInp.addEventListener('input', (ev) => {
         if (checkInp.checked) {
@@ -49,17 +56,10 @@ const search = () => {
         } else {
             checkMark.classList.remove('checked')
         };
-        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value)
+        debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
     })
 
-    catalogModalItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const categoryText = item.textContent;
-            debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
 
-        })
-
-    })
 }
 
 export default search
