@@ -22,13 +22,20 @@ const search = () => {
         } else
             catalogModal.style.display = ''
     })
-
-    let categoryText = true;
+    const removeClass = () => {
+        catalogModalItems.forEach(el => el.classList.remove('active'))
+    }
+    let categoryText;
 
     catalogModalItems.forEach(item => {
         item.addEventListener('click', () => {
-            categoryText = item.textContent;
-            debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText)
+            typeof categoryText === 'string' ? categoryText = null : categoryText = item.textContent;
+            debounceFunc(minInp.value, maxInp.value, checkInp.checked, searchInput.value, categoryText);
+            if (item.classList.contains('active')) {
+                item.classList.remove('active')
+            } else {
+                removeClass(); item.classList.add('active');
+            }
 
         })
 
